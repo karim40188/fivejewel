@@ -1,9 +1,17 @@
+"use client"
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 
 function About() {
   const t = useTranslations();
+
+  // استخدام useState لتحديد حالة عرض المحتوى الإضافي
+  const [showMore, setShowMore] = useState(false);
+
+  const handleToggleContent = () => {
+    setShowMore((prevState) => !prevState); // تغيير الحالة
+  };
 
   return (
     <div id="about" className="py-20 bg-gray-50 dark:bg-gray-900">
@@ -35,12 +43,20 @@ function About() {
               {t("about_us_description")}
             </p>
 
+            {/* النص الإضافي الذي يظهر عند الضغط */}
+            {showMore && (
+              <p className="text-secondary text-lg leading-relaxed animate-fade-in-up delay-100 dark:text-gray-300 mt-4">
+                {t("about_us_more_description")}
+              </p>
+            )}
+
             <button
               className="flex bg-main text-white px-6 py-3 rounded-lg  hover:bg-[#FFCA41] hover:text-white transition-all duration-300 ease-in-out text-lg font-semibold w-[200px] justify-center items-center 
               animate-fade-in-up delay-200 dark:bg-gray-800
                dark:text-white dark:hover:bg-[#FFCA41] dark:hover:text-white"
+              onClick={handleToggleContent} // تغيير الحالة عند الضغط
             >
-              {t("read_more")}
+              {showMore ? t("read_less") : t("read_more")}
             </button>
           </div>
         </div>

@@ -3,45 +3,27 @@
 import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, {useState, useEffect} from "react";
 
 function ServicesPage() {
   const t = useTranslations();
 
   const locale= useLocale()
+  const [services,setServices]=useState([])
 
-  const services = [
-    {
-      img: "/assets/service1.png",
-      title: "service_1_title",
-      desc: "service_1_desc",
-    },
-    {
-      img: "/assets/service2.png",
-      title: "service_2_title",
-      desc: "service_2_desc",
-    },
-    {
-      img: "/assets/service3.png",
-      title: "service_3_title",
-      desc: "service_3_desc",
-    },
-    {
-      img: "/assets/service4.png",
-      title: "service_4_title",
-      desc: "service_4_desc",
-    },
-    {
-      img: "/assets/service5.png",
-      title: "service_5_title",
-      desc: "service_5_desc",
-    },
-    {
-      img: "/assets/service6.png",
-      title: "service_6_title",
-      desc: "service_6_desc",
-    },
-  ];
+
+  const fetchServices=async()=>{
+    const response= await fetch("https://test.fivejewel.com/api/services")
+    const results = await response.json()
+    setServices(results)
+    return results
+  }
+
+  useEffect(()=>{
+    fetchServices()
+  },[])
+
+ 
 
   return (
     <div id="services" className="bg-[#EDFBFC] py-20 dark:bg-gray-900">
@@ -55,24 +37,24 @@ function ServicesPage() {
 
         {/* الخدمات */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {services.map((service, index) => (
+          {services?.map((service, index) => (
             <div
-              key={service.title}
+              key={service.title_en}
               className="bg-white p-6 text-center shadow-lg rounded-lg flex flex-col gap-6 justify-center items-center h-[350px] cursor-pointer hover:scale-[1.025] transition-transform duration-300 ease-in-out animate-fade-in-up dark:bg-gray-800 dark:text-white"
               style={{ animationDelay: `${index * 100}ms` }}
             >
-              <Image
-                alt={service.title}
+              <img
+                alt={locale=="en"?service.title_en:service.title}
                 width={100}
                 height={100}
                 className="w-[100px] h-auto object-contain"
-                src={service.img}
+                src={service.photo}
               />
               <h4 className="text-xl font-semibold text-gray-800 dark:text-white">
-                {t(service.title)}
+                {locale=="en"?service.title_en:service.title}
               </h4>
               <p className="text-secondary text-lg leading-relaxed dark:text-gray-300">
-                {t(service.desc)}
+                {locale=="en"?service.des_en:service.des}
               </p>
             </div>
           ))}

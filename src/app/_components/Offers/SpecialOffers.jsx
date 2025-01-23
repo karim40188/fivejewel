@@ -52,7 +52,6 @@ function SpecialOffers() {
             {t("take_advantage")}
           </button>
         </div>
-{/* git config --global user.email karim40189@gmail.com */}
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
           <div className="col-span-1 flex flex-col gap-6 md:col-span-1">
             {discounts?.map((discount, index) => (
