@@ -11,6 +11,7 @@ import {
 import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
 import emailjs, { send } from "emailjs-com";
+import toast from "react-hot-toast";
 
 function Footer() {
   const t = useTranslations();
@@ -35,9 +36,11 @@ function Footer() {
       )
       .then((response) => {
         console.log("Email sent successfully", response);
+        toast.success('Email sent successfully')
       })
       .catch((err) => {
         console.error("Failed to send email", err);
+        toast.error("Failed to send email")
       });
   }
 

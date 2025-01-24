@@ -6,6 +6,8 @@ import "../globals.css";
 import Navbar from '../_components/Navbar/Navbar';
 import Footer from '../_components/Footer/Footer';
 import Script from 'next/script'; // استيراد Script من next/script
+import toast, { Toaster } from 'react-hot-toast';
+
 
 export async function generateMetadata({ params }) {
   const { locale } = await params;
@@ -110,6 +112,7 @@ export default async function LocaleLayout({ children, params }) {
           <div className='mt-[100px]'>
             {children}
           </div>
+          <Toaster />
           <Footer />
         </NextIntlClientProvider>
       </body>
