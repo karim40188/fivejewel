@@ -3,27 +3,28 @@
 import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 
 function ServicesPage() {
   const t = useTranslations();
 
-  const locale= useLocale()
-  const [services,setServices]=useState([])
+  const locale = useLocale();
+  const [services, setServices] = useState([]);
 
+  const fetchServices = async () => {
+    try {
+      const response = await fetch("https://test.fivejewel.com/api/service");
+      const results = await response.json();
+      setServices(results);
+      return results;
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-  const fetchServices=async()=>{
-    const response= await fetch("https://test.fivejewel.com/api/services")
-    const results = await response.json()
-    setServices(results)
-    return results
-  }
-
-  useEffect(()=>{
-    fetchServices()
-  },[])
-
- 
+  useEffect(() => {
+    fetchServices();
+  }, []);
 
   return (
     <div id="services" className="bg-[#EDFBFC] py-20 dark:bg-gray-900">
@@ -32,7 +33,7 @@ function ServicesPage() {
         <h2 className="text-center text-4xl font-bold text-main mb-10 animate-fade-in-up dark:text-[#FFCA41]">
           {/* {t("services_title")} */}
 
-         {t('explore_services')}
+          {t("explore_services")}
         </h2>
 
         {/* الخدمات */}
@@ -44,31 +45,28 @@ function ServicesPage() {
               style={{ animationDelay: `${index * 100}ms` }}
             >
               <img
-                alt={locale=="en"?service.title_en:service.title}
+                alt={locale == "en" ? service.title_en : service.title}
                 width={100}
                 height={100}
                 className="w-[100px] h-auto object-contain"
                 src={service.photo}
               />
               <h4 className="text-xl font-semibold text-gray-800 dark:text-white">
-                {locale=="en"?service.title_en:service.title}
+                {locale == "en" ? service.title_en : service.title}
               </h4>
               <p className="text-secondary text-lg leading-relaxed dark:text-gray-300">
-                {locale=="en"?service.des_en:service.des}
+                {locale == "en" ? service.des_en : service.des}
               </p>
             </div>
           ))}
         </div>
         <div className="flex justify-center mt-10 animate-fade-in-up delay-500">
-          <Link href={`${locale}/quick-order`}>
-          <button  className="bg-[#EE4135] text-white px-6 py-3 rounded-lg shadow-lg hover:bg-opacity-90 transition-all duration-300 ease-in-out text-lg font-semibold dark:bg-gray-800 dark:text-white dark:hover:bg-[#FFCA41]">
-            {t("order_now")}
-          </button>
+          <Link href={`/${locale}/quick-order`}>
+            <button className="bg-[#EE4135] text-white px-6 py-3 rounded-lg shadow-lg hover:bg-opacity-90 transition-all duration-300 ease-in-out text-lg font-semibold dark:bg-gray-800 dark:text-white dark:hover:bg-[#FFCA41]">
+              {t("order_now")}
+            </button>
           </Link>
-
-    
         </div>
-       
       </div>
     </div>
   );

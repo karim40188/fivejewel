@@ -11,9 +11,9 @@ function QuickOrderForm() {
     service: "wash",
     address: "",
     delivery: "pickup",
-    status: "pending", // إضافة الحالة كـ pending بشكل افتراضي
   });
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -23,33 +23,41 @@ function QuickOrderForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    console.log(formData); // تأكد من أن جميع الحقول تحتوي على قيم صحيحة
+    setError(""); // إعادة تعيين الخطأ
+
+    const apiBody = {
+      Name: formData.name,
+      PhoneNumber: formData.phone,
+      ServiceType: formData.service,
+      Address: formData.address,
+      DeliveryMethod: formData.delivery,
+    };
 
     try {
-      const response = await fetch("/api/orders", {
+      const response = await fetch("https://test.fivejewel.com/api/order", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(apiBody),
       });
 
       if (!response.ok) {
-        throw new Error("Failed to create order");
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Failed to create order");
       }
 
-      alert(t("Order submitted successfully!"));
+      console.log(response)
+
       setFormData({
         name: "",
         phone: "",
         service: "wash",
         address: "",
-        delivery: "pickup", // استعادة القيمة الافتراضية
-        status: "pending",  // استعادة القيمة الافتراضية
+        delivery: "pickup",
       });
     } catch (error) {
-      console.error(error);
-      alert(t("Error submitting order"));
+      setError(error.message); // عرض الخطأ للمستخدم
     } finally {
       setLoading(false);
     }
@@ -68,6 +76,8 @@ function QuickOrderForm() {
           onSubmit={handleSubmit}
           className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 md:p-12"
         >
+          {error && <p className="text-red-500 font-semibold mb-4">{error}</p>}
+
           {/* حقل الاسم */}
           <div className="mb-6">
             <label
@@ -127,6 +137,16 @@ function QuickOrderForm() {
               <option value="wash">{t("field_service_option1")}</option>
               <option value="dry-clean">{t("field_service_option2")}</option>
               <option value="iron">{t("field_service_option3")}</option>
+              <option value="perfume">{t("field_service_option4")}</option>
+              <option value="curtains-cleaning">
+                {t("field_service_option5")}
+              </option>
+              <option value="carpets-cleaning">
+                {t("field_service_option6")}
+              </option>
+              <option value="alterations-and-repairs">
+                {t("field_service_option7")}
+              </option>
             </select>
           </div>
 
@@ -167,7 +187,9 @@ function QuickOrderForm() {
               required
             >
               <option value="pickup">{t("field_delivery_option1")}</option>
-              <option value="Home-delivery">{t("field_delivery_option2")}</option>
+              <option value="Home-delivery">
+                {t("field_delivery_option2")}
+              </option>
             </select>
           </div>
 

@@ -14,7 +14,7 @@
   "about_us": "About Us",
   "about_us_title": "Our Journey to Excellence",
   "about_us_description": "At Five Jewels Laundry, we believe that small details make a big difference. Since our establishment, we’ve been dedicated to providing professional laundry services with a focus on quality, speed, and precision. We’re proud to be the first choice for customers seeking top-notch garment care.",
- "about_us_more_description": "At Five Jewels Laundry, we take pride in using the latest technologies in garment cleaning, while maintaining high environmental standards. We ensure that each item of clothing is handled by skilled professionals who care for it as if it were their own. In addition, we offer fast and precise services for your complete convenience. We believe in the importance of our customers and are always striving to improve our services to meet your needs.",
+  "about_us_more_description": "At Five Jewels Laundry, we take pride in using the latest technologies in garment cleaning, while maintaining high environmental standards. We ensure that each item of clothing is handled by skilled professionals who care for it as if it were their own. In addition, we offer fast and precise services for your complete convenience. We believe in the importance of our customers and are always striving to improve our services to meet your needs.",
   "read_more": "Read More",
   "services_title": "Our Premium Services",
   "service_1_title": "Laundry & Ironing",
@@ -27,6 +27,10 @@
   "service_4_desc": "Enjoy the convenience of pickup and delivery to your doorstep.",
   "order_now": "Make Order Now",
   "service_5_title": "Alteration & Repair",
+  "field_service_option4": "Clothes Perfuming",
+  "field_service_option5": "Curtains Cleaning",
+  "field_service_option6": "Carpets Cleaning",
+  "field_service_option7": "Alterations and Repairs",
   "service_5_desc": "Fix torn clothes and adjust fittings to suit you perfectly.",
   "service_6_title": "Curtain & Carpet Cleaning",
   "service_6_desc": "Deep cleaning for curtains and carpets to refresh your home.",
@@ -58,8 +62,6 @@
   "special_offer_clean_5": "Special Offer: Clean 5 items and get an additional piece cleaned for free.",
   "family_discount": "Family Discount:",
 
-
-
   "army_cap": "Army Cap",
   "men_cloak": "Men Cloak",
   "white_thob": "White Thob",
@@ -71,13 +73,9 @@
   "under_shirt": "Under Shirt",
   "trouser": "Trouser",
   "inner_shirt": "Inner Shirt",
-  
-
-
-
 
   "regular_price": "Regular Price",
-  "pricing":"pricing",
+  "pricing": "pricing",
   "urgent_price": "Urgent Price",
   "description": "Description",
   "see_less": "See Less",
@@ -91,11 +89,6 @@
   "english_suit": "English Suit",
   "ladies_abaya": "Ladies Abaya",
   "dress_day_night": "Dress Day/Night",
-  
-
-
-
-
 
   "army_cap_desc": "Cleaning and ironing the army cap to maintain its shape and quality.",
   "men_cloak_desc": "Cleaning and ironing the men's cloak with proper care.",
@@ -238,5 +231,5 @@
   "additional_about_us_description": "Since our inception, we have focused on meeting our customers' needs with the highest quality. We constantly innovate to offer unique solutions to daily challenges. Our vision is to be the first choice for anyone seeking exceptional service.",
   "field_phone": "Phone Number",
   "field_phone_placeholder": "Enter your phone number",
-  "Submitting":"Submitting..."
+  "Submitting": "Submitting..."
 }

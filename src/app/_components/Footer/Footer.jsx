@@ -1,22 +1,49 @@
 "use client";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import { BiPhoneCall } from "react-icons/bi";
-import { FaInstagram, FaTiktok, FaTwitter, FaSnapchatGhost } from "react-icons/fa";
+import {
+  FaInstagram,
+  FaTiktok,
+  FaTwitter,
+  FaSnapchatGhost,
+} from "react-icons/fa";
 import { useLocale, useTranslations } from "next-intl";
-import Link from "next/link"; 
+import Link from "next/link";
+import emailjs, { send } from "emailjs-com";
 
 function Footer() {
   const t = useTranslations();
   const locale = useLocale();
+  const [email, setEmail] = useState("");
+
+  function sendEmail(e) {
+    e.preventDefault();
+    console.log("email send");
+    emailjs
+      .send(
+        "service_g690tk9",
+        "template_v5e28um",
+        {
+          user_email: email,
+        },
+        "kEnx-izGC3-miUZRo" // User ID من EmailJS
+      )
+      .then((response) => {
+        console.log("Email sent successfully", response);
+      })
+      .catch((err) => {
+        console.error("Failed to send email", err);
+      });
+  }
 
   const quickLinks = [
-    { name: "about_us", href: "/about" }, 
-    { name: "our_services_link", href: "/services" }, 
-    { name: "blogs_news", href: "/blog" }, 
-    { name: "contact_us", href: "/contact" }, 
+    { name: "about_us", href: "/about" },
+    { name: "our_services_link", href: "/services" },
+    { name: "blogs_news", href: "/blog" },
+    { name: "contact_us", href: "/contact" },
     "how_it_works",
-    "faq", 
+    "faq",
   ];
 
   const ourServices = [
@@ -37,18 +64,15 @@ function Footer() {
     "pallet",
   ];
 
-
   const renderLinks = (links) => {
     return links.map((link, index) => (
       <li
         key={index}
         className="cursor-pointer text-gray-300 hover:text-[#FFCA41] transition-all duration-300 ease-in-out border-b border-gray-700 pb-2"
       >
-
         {link.href ? (
-          <Link href={`/${locale}${link.href}`}>{t(link.name)}</Link> 
+          <Link href={`/${locale}${link.href}`}>{t(link.name)}</Link>
         ) : (
-          
           t(link)
         )}
       </li>
@@ -84,67 +108,109 @@ function Footer() {
 
           {/* العمود الثاني: الروابط السريعة */}
           <div className="flex flex-col gap-6">
-            <h4 className="text-white text-2xl font-bold">{t("quick_links")}</h4>
-            <ul className="flex flex-col gap-4">
-              {renderLinks(quickLinks)}
-            </ul>
+            <h4 className="text-white text-2xl font-bold">
+              {t("quick_links")}
+            </h4>
+            <ul className="flex flex-col gap-4">{renderLinks(quickLinks)}</ul>
           </div>
 
           {/* العمود الثالث: خدماتنا */}
           <div className="flex flex-col gap-6">
-            <h4 className="text-white text-2xl font-bold">{t("our_services")}</h4>
-            <ul className="flex flex-col gap-4">
-              {renderLinks(ourServices)}
-            </ul>
+            <h4 className="text-white text-2xl font-bold">
+              {t("our_services")}
+            </h4>
+            <ul className="flex flex-col gap-4">{renderLinks(ourServices)}</ul>
           </div>
 
           {/* العمود الرابع: الفئات */}
           <div className="flex flex-col gap-6">
             <h4 className="text-white text-2xl font-bold">{t("categories")}</h4>
-            <ul className="flex flex-col gap-4">
-              {renderLinks(categories)}
-            </ul>
+            <ul className="flex flex-col gap-4">{renderLinks(categories)}</ul>
           </div>
         </div>
 
         {/* قسم Our Newsletter في صف منفصل في المنتصف */}
         <div className="flex flex-col items-center justify-center mt-12">
-          <h4 className="text-white text-2xl font-bold mb-4">{t("our_newsletter")}</h4>
+          <h4 className="text-white text-2xl font-bold mb-4">
+            {t("our_newsletter")}
+          </h4>
           <p className="text-gray-300 text-lg mb-6 text-center">
             {t("subscribe_to_our_newsletter")}
           </p>
-          <div className="flex w-full max-w-[600px]">
-            <input
-              type="email"
-              placeholder={t("enter_your_email")}
-              className="w-full px-6 py-3 rounded-l-lg focus:outline-none text-gray-800"
-            />
-            <button className="bg-[#FFCA41] text-white px-8 py-3 rounded-r-lg hover:bg-[#EE4135] transition-all duration-300 ease-in-out">
-              {t("subscribe_now")}
-            </button>
+          <div className=" w-full max-w-[600px]">
+            <form onSubmit={sendEmail} className="w-full flex">
+              <input
+                type="email"
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+                name="user_email"
+                required
+                placeholder={t("enter_your_email")}
+                className={`w-full px-6 py-3 ${
+                  locale == "en" ? "rounded-l-lg" : "rounded-r-lg"
+                } focus:outline-none text-gray-800`}
+              />
+              <button
+                className={`bg-[#FFCA41] text-white px-8 py-3 ${
+                  locale == "en" ? "rounded-r-lg" : "rounded-l-lg"
+                }  hover:bg-[#EE4135] transition-all duration-300 ease-in-out`}
+              >
+                {t("subscribe_now")}
+              </button>
+            </form>
           </div>
         </div>
 
         {/* روابط التواصل الاجتماعي */}
         <div className="flex justify-center gap-8 mt-12">
-          <a href="https://www.tiktok.com/@fivejewels.fw" target="_blank" rel="noopener noreferrer">
-            <FaTiktok size={30} className="text-white hover:text-[#FFCA41] transition-all duration-300 ease-in-out" />
+          <a
+            href="https://www.tiktok.com/@fivejewels.fw"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaTiktok
+              size={30}
+              className="text-white hover:text-[#FFCA41] transition-all duration-300 ease-in-out"
+            />
           </a>
-          <a href="https://x.com/fivej_ewels" target="_blank" rel="noopener noreferrer">
-            <FaTwitter size={30} className="text-white hover:text-[#FFCA41] transition-all duration-300 ease-in-out" />
+          <a
+            href="https://x.com/fivej_ewels"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaTwitter
+              size={30}
+              className="text-white hover:text-[#FFCA41] transition-all duration-300 ease-in-out"
+            />
           </a>
-          <a href="https://www.instagram.com/fivejewels.fw/" target="_blank" rel="noopener noreferrer">
-            <FaInstagram size={30} className="text-white hover:text-[#FFCA41] transition-all duration-300 ease-in-out" />
+          <a
+            href="https://www.instagram.com/fivejewels.fw/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaInstagram
+              size={30}
+              className="text-white hover:text-[#FFCA41] transition-all duration-300 ease-in-out"
+            />
           </a>
-          <a href="https://www.snapchat.com/add/fivejewels24" target="_blank" rel="noopener noreferrer">
-            <FaSnapchatGhost size={30} className="text-white hover:text-[#FFCA41] transition-all duration-300 ease-in-out" />
+          <a
+            href="https://www.snapchat.com/add/fivejewels24"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaSnapchatGhost
+              size={30}
+              className="text-white hover:text-[#FFCA41] transition-all duration-300 ease-in-out"
+            />
           </a>
         </div>
 
         {/* قسم Copyright */}
         <div className="border-t border-gray-700 mt-12 pt-8 text-center">
           <p className="text-gray-300">
-            &copy; {new Date().getFullYear()} {t("company_name")}. {t("all_rights_reserved")}
+            &copy; {new Date().getFullYear()} {t("company_name")}.{" "}
+            {t("all_rights_reserved")}
           </p>
         </div>
       </div>
