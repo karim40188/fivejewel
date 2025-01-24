@@ -1,9 +1,11 @@
-import { useTranslations } from "next-intl";
+import { useTranslations,useLocale } from "next-intl";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 function ChooseUs() {
   const t = useTranslations();
+  const locale = useLocale();
 
   return (
     <div className="py-20 bg-gray-50 dark:bg-gray-900">
@@ -61,12 +63,11 @@ function ChooseUs() {
                 </div>
               </div>
             </div>
-
-            <button
-              className="flex bg-main text-white px-6 py-3 rounded-lg shadow-lg hover:bg-[#FFCA41] hover:text-white transition-all duration-300 ease-in-out text-lg font-semibold w-[200px] justify-center items-center animate-fade-in-up delay-300 dark:bg-gray-800 dark:text-white dark:hover:bg-[#FFCA41]"
-            >
-              {t("read_more_btn")}
-            </button>
+            <Link href={`/${locale}/about`}>
+              <button className="flex bg-main text-white px-6 py-3 rounded-lg shadow-lg hover:bg-[#FFCA41] hover:text-white transition-all duration-300 ease-in-out text-lg font-semibold w-[200px] justify-center items-center animate-fade-in-up delay-300 dark:bg-gray-800 dark:text-white dark:hover:bg-[#FFCA41]">
+                {t("read_more_btn")}
+              </button>
+            </Link>
           </div>
 
           {/* الصورة */}

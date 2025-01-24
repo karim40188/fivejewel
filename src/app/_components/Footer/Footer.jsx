@@ -16,16 +16,20 @@ function Footer() {
   const t = useTranslations();
   const locale = useLocale();
   const [email, setEmail] = useState("");
+  const [name, setName] = useState(""); // حفظ اسم الشخص
 
   function sendEmail(e) {
     e.preventDefault();
     console.log("email send");
+    
+    // إرسال البريد الإلكتروني مع الاسم
     emailjs
       .send(
-        "service_g690tk9",
-        "template_v5e28um",
+        "service_g690tk9", // معرف الخدمة
+        "template_v5e28um", // معرف القالب
         {
-          user_email: email,
+          user_email: email,  // البريد الإلكتروني
+          from_name: name,    // اسم الشخص
         },
         "kEnx-izGC3-miUZRo" // User ID من EmailJS
       )
@@ -139,6 +143,17 @@ function Footer() {
           </p>
           <div className=" w-full max-w-[600px]">
             <form onSubmit={sendEmail} className="w-full flex">
+              {/* إضافة حقل الاسم */}
+              <input
+                type="text"
+                name="name"
+                onChange={(e) => setName(e.target.value)}  // حفظ الاسم
+                required
+                placeholder={t("enter_your_name")}
+                className={`w-full px-6 py-3 ${
+                  locale == "en" ? "rounded-l-lg" : "rounded-r-lg"
+                } focus:outline-none text-gray-800`}
+              />
               <input
                 type="email"
                 onChange={(e) => {
