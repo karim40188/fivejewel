@@ -51,6 +51,7 @@ function ServicesPage() {
                 className="w-[100px] h-auto object-contain"
                 src={`${process.env.NEXT_PUBLIC_URL}/upload/photoservice/${service.photo}`}
               />
+              
               <h4 className="text-xl font-semibold text-gray-800 dark:text-white">
                 {locale == "en" ? service.title_en : service.title}
               </h4>
