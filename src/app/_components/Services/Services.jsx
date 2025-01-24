@@ -40,7 +40,7 @@ function ServicesPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {services?.map((service, index) => (
             <div
-              key={service.title_en}
+              key={index}
               className="bg-white p-6 text-center shadow-lg rounded-lg flex flex-col gap-6 justify-center items-center h-[350px] cursor-pointer hover:scale-[1.025] transition-transform duration-300 ease-in-out animate-fade-in-up dark:bg-gray-800 dark:text-white"
               style={{ animationDelay: `${index * 100}ms` }}
             >
@@ -49,7 +49,7 @@ function ServicesPage() {
                 width={100}
                 height={100}
                 className="w-[100px] h-auto object-contain"
-                src={service.photo}
+                src={`${process.env.NEXT_PUBLIC_URL}/upload/photoservice/${service.photo}`}
               />
               <h4 className="text-xl font-semibold text-gray-800 dark:text-white">
                 {locale == "en" ? service.title_en : service.title}

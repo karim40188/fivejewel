@@ -67,8 +67,8 @@ function BlogPage() {
               className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md transition-transform hover:scale-[1.02] duration-300"
             >
               <img
-                src={post.photo}
-                alt={locale=="en"?post.title_en:post.title}
+                src={`${process.env.NEXT_PUBLIC_URL}/upload/photoservice/${post.photo}`}
+                alt={locale == "en" ? post.title_en : post.title}
                 width={600}
                 height={400}
                 className="w-full h-auto rounded-md object-cover"
